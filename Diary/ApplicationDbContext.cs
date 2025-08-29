@@ -1,0 +1,28 @@
+using Diary.Models.Configurations;
+using Diary.Models.Domains;
+using System;
+using System.Data.Entity;
+using System.Linq;
+
+namespace Diary
+{
+    public class ApplicationDbContext : DbContext
+    {
+       
+        public ApplicationDbContext()
+            : base("name=ApplicationDbContext")
+        {
+        }
+
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new StudentConfigurations());
+            modelBuilder.Configurations.Add(new GroupConfigurations());
+            modelBuilder.Configurations.Add(new RatingConfigurations());
+        }
+    }
+}
